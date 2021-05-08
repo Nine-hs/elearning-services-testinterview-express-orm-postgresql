@@ -3,7 +3,7 @@ const models = require("../models/");
 module.exports = {
     async getCourses(req, res) {
         const GetCourses = await models.course.findAll({
-            include: [models.teacher]
+            include: models.teacher
         });
         if (!GetCourses) {
             return res.status(400).send({ "msg": "Sometings is Wrong" });

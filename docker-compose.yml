@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+    db:
+        image: postgres
+        environment: 
+            POSTGRES_PASSWORD: '12345'
+            POSTGRES_USER: 'postgres'
+            POSTGRES_DB: 'elearngingDB'
+        ports:
+            - '5432:5432'
+        volumes:
+            - data:/var/lib/postgresql/data
+    webapp:
+        build: .
+        depends_on: 
+            - db
+        ports:
+            - '3000:3000'
+
+volumes:
+    data:
+
+            
