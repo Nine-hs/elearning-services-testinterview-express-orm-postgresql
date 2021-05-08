@@ -2,23 +2,27 @@ const models = require("../models/");
 
 module.exports = {
     async getCourses(req, res) {
-        const GetCourses = await models.course.findAll({
+        await models.course.findAll({
             include: models.teacher
-        });
-        if (!GetCourses) {
-            return res.status(400).send({ "msg": "Sometings is Wrong" });
-        }
-        res.status(200).send(GetCourses);
+        })
+            .then(data => {
+                res.status(200).send(data);
+            })
+            .catch(err => {
+                res.status(400).send({ "msg": err });
+            })
     },
     async createCourses(req, res) {
-        const createCourses = await models.course.create({
+        await models.course.create({
             course_name: req.body.name,
             course_dtion: req.body.description,
             teacher_course: req.body.teacherno
         })
-        if (!createCourses) {
-            return res.status(400).send({ "msg": "Sometings is Wrong" });
-        }
-        res.status(200).send(createCourses);
+            .then(data => {
+                res.status(200).send(data);
+            })
+            .catch(err => {
+                res.status(400).send({ "msg": err });
+            })
     }
 }
